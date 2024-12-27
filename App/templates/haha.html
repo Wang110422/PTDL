@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin bệnh nhân</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden; /* Loại bỏ thanh cuộn */
+        }
+
+        .container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .container h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        form table {
+            width: 100%;
+            margin: 20px 0;
+        }
+
+        form table td {
+            padding: 5px;
+        }
+
+        form input {
+            width: 100%;
+            padding: 8px;
+            /* margin: 5px 00; */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        form select{
+            width: 100%;
+            padding: 8px;
+            /* margin: 5px 00; */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+    </style>
+    <script>
+        function sendPatientInfo() {
+            // Lấy giá trị từ các trường nhập liệu
+            const age = document.getElementById('s1').value;
+            const gender = document.getElementById('s2').value;
+            const anaemia = document.getElementById('s3').value;
+            const cpk = document.getElementById('s4').value;
+            const diabetes = document.getElementById('s5').value;
+            const ejection_fraction = document.getElementById('s6').value;
+            const high_blood_pressure = document.getElementById('s7').value;
+            const platelets = document.getElementById('s8').value;
+            const serum_creatinine = document.getElementById('s9').value;
+            const serum_sodium = document.getElementById('s10').value;
+            const smoking = document.getElementById('s11').value;
+
+            // Tạo đối tượng chứa dữ liệu bệnh nhân
+            const patientData = {
+                age: age,
+                gender: gender,
+                anaemia: anaemia,
+                cpk: cpk,
+                diabetes: diabetes,
+                ejection_fraction: ejection_fraction,
+                high_blood_pressure: high_blood_pressure,
+                platelets: platelets,
+                serum_creatinine: serum_creatinine,
+                serum_sodium: serum_sodium,
+                smoking: smoking
+            };
+
+            // Gửi dữ liệu tới backend
+            fetch("/submit_patient_info", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ data: patientData })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert("Phản hồi từ server: " + data.response);
+            })
+            .catch(error => {
+                console.error("Lỗi:", error);
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Thông Tin Bệnh Nhân</h1>
+        <form onsubmit="sendPatientInfo(); return false;">
+            <table>
+                <tr>
+                    <td>Nhập độ tuổi bệnh nhân</td>
+                    <td><input type="text" id="s1" name="age"></td>
+                </tr>
+                <tr>
+                    <td>Giới tính bệnh nhân ?</td>
+                    <td>
+                        <select name="gender" id="s2">
+                            <option value="1">Nam</option>
+                            <option value="0">Nữ</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Bệnh nhân có bị thiếu máu không ?</td>
+                    <td>
+                        <select name="anaemia" id="s3">
+                            <option value="1">Có</option>
+                            <option value="0">Không</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Mức CPK trong máu bao nhiêu ?</td>
+                    <td><input type="text" id="s4" name="cpk"></td>
+                </tr>
+                <tr>
+                    <td>Bệnh nhân mắc bệnh tiểu đường không ?</td>
+                    <td>
+                        <select name="diabetes" id="s5">
+                            <option value="1">Có</option>
+                            <option value="0">Không</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tỉ lệ phần trăm tống máu là bao nhiêu ?</td>
+                    <td><input type="text" id="s6" name="ejection_fraction"></td>
+                </tr>
+                <tr>
+                    <td>Bệnh nhân bị tăng huyết áp không ?</td>
+                    <td>
+                        <select name="high_blood_pressure" id="s7">
+                            <option value="1">Có</option>
+                            <option value="0">Không</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Lượng tiểu cầu trong máu là bao nhiêu ?</td>
+                    <td><input type="text" id="s8" name="platelets"></td>
+                </tr>
+                <tr>
+                    <td>Nồng độ creatine huyết thanh trong máu là bao nhiêu ?</td>
+                    <td><input type="text" id="s9" name="serum_creatinine"></td>
+                </tr>
+                <tr>
+                    <td>Nồng độ natri huyết thanh trong máu là bao nhiêu ?</td>
+                    <td><input type="text" id="s10" name="serum_sodium"></td>
+                </tr>
+                <tr>
+                    <td>Bệnh nhân có hút thuốc không ?</td>
+                    <td>
+                        <select name="smoking" id="s11">
+                            <option value="1">Có</option>
+                            <option value="0">Không</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <input type="submit" value="Gửi">
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chọn Phân Tích</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .container h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .container button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .container button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script>
+        function redirectToForm() {
+            window.location.href = "/menu"; // Đường dẫn tới màn hình biểu mẫu
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Phân Tích Thông Tin Bệnh Nhân</h1>
+        <p>Nhấn vào nút bên dưới để chuyển đến biểu mẫu nhập thông tin.</p>
+        <button onclick="redirectToForm()">Phân Tích Ngay</button>
+    </div>
+</body>
+</html>
