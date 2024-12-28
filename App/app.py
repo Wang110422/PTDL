@@ -29,11 +29,11 @@ def xuly():
     prediction , percent = trave(age, gender, anaemia, cpk, diabetes, ejection_fraction, high_blood_pressure, platelets, serum_creatinine, serum_sodium, smoking)
 
     if prediction == 1:
-        result = "Bệnh nhân có nguy cơ bị suy tim."
+        result = "Dự báo bệnh nhân có thể bị tử vong"
     else:
-        result = "Bệnh nhân không có nguy cơ bị suy tim."
-    result1 = f"Bệnh nhân có nguy cơ suy tim: {percent * 100:.2f}%"
-    return jsonify(response=f"{result}\n{result1}")
+        result = "Dự báo bệnh nhân không bị tử vong."
+    result1 = f"Bệnh nhân có nguy cơ tử vong do suy tim: {percent * 100:.2f}%"
+    return jsonify(response=f"\n{result}\n{result1}")
 
 def trave(age, gender, anaemia, cpk, diabetes, ejection_fraction, high_blood_pressure, platelets, serum_creatinine, serum_sodium, smoking):
     ## Doc data

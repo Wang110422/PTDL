@@ -1,24 +1,16 @@
 import pandas as pd
 from sklearn.model_selection import StratifiedKFold
 from sklearn.linear_model import LogisticRegression
-from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report, roc_auc_score, f1_score
 
 def k_fold_logistic_regression_stratified_z_score():
     # Đọc dữ liệu từ tệp CSV
-    df = pd.read_csv('heart_failure_clinical_records.csv')
-
-    # Kiểm tra và xử lý dữ liệu bị khuyết
-    df = df.dropna()
+    df = pd.read_csv('heart_failure_clinical_records_clean.csv')
 
     # Chọn các đặc điểm (features) và nhãn (label)
     X = df[['age', 'anaemia', 'creatinine_phosphokinase', 'diabetes', 'ejection_fraction',
             'high_blood_pressure', 'platelets', 'serum_creatinine', 'serum_sodium', 'sex', 'smoking']]
     y = df['DEATH_EVENT']
-
-    # Chuẩn hóa dữ liệu theo kiểu nguyên thủy bằng Z-score
-    scaler = StandardScaler()
-    X_normalized = scaler.fit_transform(X)
 
     # Thiết lập StratifiedKFold cross-validation với k = 10
     skf = StratifiedKFold(n_splits=10, shuffle=True, random_state=42)
@@ -31,8 +23,8 @@ def k_fold_logistic_regression_stratified_z_score():
     reports = []
 
     fold = 1
-    for train_index, test_index in skf.split(X_normalized, y):
-        X_train, X_test = X_normalized[train_index], X_normalized[test_index]
+    for train_index, test_index in skf.split(X, y):
+        X_train, X_test = X.iloc[train_index], X.iloc[test_index]
         y_train, y_test = y.iloc[train_index], y.iloc[test_index]
 
         # Tạo mô hình hồi quy logistic
